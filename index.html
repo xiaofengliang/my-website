@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>动态时钟</title>
+    <title>随机图片显示</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,29 +11,56 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
             margin: 0;
+            background-color: #f4f4f4;
+            overflow: hidden; /* 防止滚动条出现 */
         }
-        .clock {
-            font-size: 48px;
-            color: #4CAF50;
+        .image-container {
+            width: 720px;
+            height: 1080px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* 确保图片不会超出容器 */
+            border: 2px solid #ccc; /* 可选：添加边框以便更清楚地看到容器 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 保持图片比例 */
         }
     </style>
 </head>
 <body>
-    <div class="clock" id="clock"></div>
+    <div class="image-container">
+        <img id="randomImage" src="" alt="Random Image">
+    </div>
 
     <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        // 图片路径数组
+        const images = [
+            "image1.jpg", // 替换为你的图片路径
+            "image2.jpg",
+            "image3.jpg",
+            "image4.jpg",
+            "image5.jpg"
+        ];
+
+        // 获取图片元素
+        const imageElement = document.getElementById('randomImage');
+
+        // 随机选择一张图片
+        function showRandomImage() {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            imageElement.src = images[randomIndex];
         }
 
-        setInterval(updateClock, 1000);
-        updateClock(); // 初始化时钟
+        // 初始化显示一张随机图片
+        showRandomImage();
+
+        // 添加点击事件监听器
+        document.addEventListener('click', showRandomImage);
     </script>
 </body>
 </html>
